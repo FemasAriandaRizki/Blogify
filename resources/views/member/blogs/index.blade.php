@@ -34,9 +34,13 @@
                                 <td class="border px-6 py-4 text-center">
                                     <a href='{{ route("member.blogs.edit",['post'=>$value->id]) }}' class="text-blue-600 hover:text-blue-400 px-2">edit</a>
                                     <a href='' class="text-blue-600 hover:text-blue-400 px-2">lihat</a>
-                                    <button type=' submit' class='text-red-600 hover:text-red-400 px-2'>
-                                        hapus
-                                    </button>
+                                    <form class="inline" onsubmit="return confirm('Yakin akan menghaspus data ini')"  method="post" action="{{ route('member.blogs.destroy',['post'=>$value->id]) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <button type=' submit' class='text-red-600 hover:text-red-400 px-2'>
+                                            hapus
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
