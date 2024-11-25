@@ -48,7 +48,8 @@ class BlogController extends Controller
      */
     public function edit(Post $post)
     {
-        print_r($post);
+        $data = $post;
+        return view('member.blogs.edit', compact('data'));
     }
 
     /**
@@ -56,7 +57,27 @@ class BlogController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title'=>'required',
+            'content'=>'required',
+            'thumbnail'=>'image|mimes:jpeg,jpg,png|max:10240'
+        ], [
+            'title.required'=>'Judul wajid diisi',
+            'content.required'=>'Konten wajid diisi',
+            'thumbnail.image'=>'Hanya gambar yang diperbolehkan',
+            'thumbnail.mimes'=>'Ekstensi yang diperbolehkan hanya JPEG, JPG, dan PNG',
+            'thumbnail.,max'=>'Ukuran gambar maksimum untuk thumbnail adalah 10MB',
+        ]);
+
+        $data=[
+            'title'=>$request->title,
+            'description'=>$request->description,
+            'content'=>$request->content,
+            'status'=>$request->status,
+        ];
+
+        Post::where('id', $post->id)->update($data);
+        return redirect()->route('member.blogs.index')->with('success', 'Data berhasil di-update');
     }
 
     /**
