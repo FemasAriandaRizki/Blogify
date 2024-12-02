@@ -1,6 +1,6 @@
-@props(['title', 'date', 'user', 'description', 'link']);
+@props(['title', 'date', 'user', 'description', 'link'])
 <div class="post-preview">
-    <a href="post.html">
+    <a href="{{ $link }}">
         <h2 class="post-title">{{ $title }}</h2>
         <h3 class="post-subtitle">
             @isset($description)

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Front\BlogDetailController;
 use App\Http\Controllers\Front\HomepageController;
 use App\Http\Controllers\Member\BlogController;
 use App\Http\Controllers\ProfileController;
@@ -30,3 +31,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+
+Route::get('/{slug}', [BlogDetailController::class, 'detail'])->name('blog-detail');
