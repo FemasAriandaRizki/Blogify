@@ -1,12 +1,12 @@
 <?php
 
+use App\Http\Controllers\Front\HomepageController;
 use App\Http\Controllers\Member\BlogController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
 
-Route::get('/', function () {
-    return view('components.front.home-page');
-});
+Route::get('/', [HomepageController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -17,16 +17,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // blog route
-    Route::resource('/member/blogs',BlogController::class)->names([
-        'index'=>'member.blogs.index',
-        'edit'=>'member.blogs.edit',
-        'update'=>'member.blogs.update',
-        'create'=>'member.blogs.create',
-        'store'=>'member.blogs.store',
-        'destroy'=>'member.blogs.destroy'
+    Route::resource('/member/blogs', BlogController::class)->names([
+        'index' => 'member.blogs.index',
+        'edit' => 'member.blogs.edit',
+        'update' => 'member.blogs.update',
+        'create' => 'member.blogs.create',
+        'store' => 'member.blogs.store',
+        'destroy' => 'member.blogs.destroy'
     ])->parameters([
         'blogs' => 'post'
     ]);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
